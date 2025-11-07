@@ -25,7 +25,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.12'
+          cache: 'pip'
 
       - name: Install system dependencies
         run: |
@@ -40,13 +41,18 @@ jobs:
       - name: Generate resume files
         run: python main.py
 
+      - name: Prepare deployment directory
+        run: |
+          mkdir -p _site
+          cp index.html resume.html resume.md resume.pdf _site/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
   deploy:
     environment:
