@@ -36,13 +36,32 @@ jobs:
       - name: Generate site
         run: make generate
 
-      - name: Publish rendered resume as release assets
+      - name: Compute version
+        id: ver
+        run: echo "version=v$(date -u +'%Y.%m.%d').${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish versioned release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.ver.outputs.version }}
+          name: Résumé ${{ steps.ver.outputs.version }}
+          body: |
+            Rendered résumé built from `resume_data.py` at commit ${{ github.sha }}.
+
+            - [resume.pdf](https://github.com/${{ github.repository }}/releases/download/${{ steps.ver.outputs.version }}/resume.pdf)
+            - [resume.md](https://github.com/${{ github.repository }}/releases/download/${{ steps.ver.outputs.version }}/resume.md)
+          files: |
+            public/resume.pdf
+            public/resume.md
+
+      - name: Update rolling "latest" release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
           name: Latest resume
           body: |
             Rendered résumé, rebuilt from `resume_data.py` on every push to `master`.
+            Current version: **${{ steps.ver.outputs.version }}**
 
             - [resume.pdf](https://github.com/${{ github.repository }}/releases/latest/download/resume.pdf)
             - [resume.md](https://github.com/${{ github.repository }}/releases/latest/download/resume.md)
