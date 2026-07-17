@@ -106,3 +106,17 @@ dmypy.json
 .pyre/
 .pytype/
 cython_debug/
+
+# uv (uv.lock IS committed for reproducible installs; only caches are ignored)
+.uv/
+
+# Ruff
+.ruff_cache/
+
+# Generated resume artifacts — resume_data.py is the source of truth.
+# These are produced by `make generate` / CI and deployed, never committed.
+public/
+index.html
+resume.html
+resume.md
+resume.pdf

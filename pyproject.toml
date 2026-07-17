@@ -1,0 +1,33 @@
+[project]
+name = "resume"
+version = "0.1.0"
+description = "Static resume site generator (HTML / Markdown / PDF) for raghavtan.github.io"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "jinja2>=3.1",
+    "xhtml2pdf>=0.2.11",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+    "pytest>=8.0",
+    "pre-commit>=3.7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["public", ".venv", "venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# Résumé content lives in long strings (bullets, skill lists); line-length noise
+# on content is not useful, so E501 is disabled project-wide.
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["."]
