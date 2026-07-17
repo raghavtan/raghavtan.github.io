@@ -45,6 +45,7 @@ jobs:
         with:
           tag_name: ${{ steps.ver.outputs.version }}
           name: Résumé ${{ steps.ver.outputs.version }}
+          make_latest: "false"
           body: |
             Rendered résumé built from `resume_data.py` at commit ${{ github.sha }}.
 
@@ -59,6 +60,7 @@ jobs:
         with:
           tag_name: latest
           name: Latest resume
+          make_latest: "true"
           body: |
             Rendered résumé, rebuilt from `resume_data.py` on every push to `master`.
             Current version: **${{ steps.ver.outputs.version }}**
