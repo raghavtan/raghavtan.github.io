@@ -58,6 +58,12 @@ uv run pre-commit run --all-files
 to `master`: it installs deps with uv, runs `make ci`, generates `public/`, and
 deploys it to GitHub Pages via GitHub Actions.
 
+The same run publishes the rendered Markdown and PDF to a rolling `latest`
+GitHub Release, so there are stable download URLs:
+
+- PDF: `https://github.com/raghavtan/raghavtan.github.io/releases/latest/download/resume.pdf`
+- Markdown: `https://github.com/raghavtan/raghavtan.github.io/releases/latest/download/resume.md`
+
 > **One-time setup:** In the repo, go to **Settings → Pages → Build and
 > deployment → Source** and select **GitHub Actions** (not "Deploy from a
 > branch"). Otherwise Pages keeps serving stale files from the branch instead of
